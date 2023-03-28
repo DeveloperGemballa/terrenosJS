@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Terrenos - Exemplo uso Classes e Objetos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="display-3 container">Terrenos - Exemplo uso Classes e Objetos</h1>
+    <form id="fTerreno" action="#" method="get" class="form-control container">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Proprietário:</span>
+            <input class="form-control" type="text" id="iProprietario" placeholder="Nome Proprietário" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Largura:</span>
+            <textarea class="form-control" id="tEndereco" placeholder="Endereço" required></textarea>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">Largura:</span>
+            <input class="form-control" type="text" id="iLargura" placeholder="em m2" pattern="[0-9]+$" required>
+
+            <span class="input-group-text">Comprimento:</span>
+            <input class="form-control" type="text" id="iComprimento" pattern="[0-9]+$" placeholder="em m2" required>
+        </div>
+    <label for="iArea" id="lArea">Area</label>
+    <input class="form-control-plaintext" type="text" id="iArea" readonly>
+        <br>
+
+        <div class="input-group mb-3">
+            <input class="btn btn-outline-primary" type="submit" id="bIncluir" value="Incluir">
+            <input class="btn btn-outline-warning" type="button" id="bListar" value="Listar">
+            <input class="btn btn-outline-danger" type="reset" id="bLimpar" value="Limpar">  
+        </div>
+        <p id="pObs" class="lead">Duplo clique no Nro para Apagar</p>
+        <div class="btn-outline-danger" id="mostras">
+
+        </div>
+        <div class="bg-success">
+            <table class="table table-success table-striped" id="pMostra">
+                
+            </table>
+        </div>
+    </form>
+</body>
+    <script src="terrenos.js" language="JavaScript"></script>
+    <script language="JavaScript">
+        document.getElementById("fTerreno").onsubmit = function() {
+            //console.log(document.getElementById("iProprietario").value);
+            let varea = fIncluirTerreno(document.getElementById("iProprietario").value,
+                            document.getElementById("tEndereco").value,
+                            document.getElementById("iLargura").value,
+                            document.getElementById("iComprimento").value);                            
+            document.getElementById("iArea").value = varea;
+            document.getElementById("mostras").innerHTML = "Nº Terrenos cadastrados: "+fContaTerrenos();
+        };
+
+        document.getElementById("bListar").onclick = function() {
+            document.getElementById("pMostra").innerHTML = "<th>Código</th><th>Nome</th><th>Endereço</th><th>Largura</th><th>Comprimento</th><th>Area calculada</th>"
+                                                            +fListarTerrenos("<tr>","<td>", "</td>", "</tr>");
+        }
+
+        document.getElementById("fTerreno").onreset = function() {
+            fLimparTerrenos();
+        }
+    </script>
+</html>
